@@ -17,8 +17,7 @@ namespace MarkDown
 
             var taginfos = new List<TagGenerater.TagInfo>();
             
-
-            var lineBreakCount = 0;
+            
         }
 
     }
