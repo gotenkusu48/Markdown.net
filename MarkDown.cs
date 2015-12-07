@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using MarkDown;
-using System.Text;
-using Windows.UI.Xaml.Shapes;
 
 namespace MarkDown
 {
@@ -15,9 +11,9 @@ namespace MarkDown
 
         public MarkDown(string text)
         {
-            this.Markdowntext = text;
+            Markdowntext = text;
 
-            var taginfos = new List<TagInfo>();
+            var taginfos = new List<TagGenerater.TagInfo>();
 
             using (var rs = new StringReader(text))
             {
@@ -28,16 +24,24 @@ namespace MarkDown
                     while (rs.ReadLineAsync() != null)
                     {
                         //一行読み込んで表示する
-                        var linetext = rs.ReadLineAsync();
+                        var linetext = rs.ReadLineAsync().Result;
+
+                        //Get Taginfo
+                        taginfos.Add(Dicision(linetext));
                     }
                 }
                 catch (Exception)
                 {
-                    
+
                     throw new ObjectDisposedException(nameof(rs));
                 }
             }
 
+        }
+
+        protected static TagGenerater.TagInfo Dicision(string str)
+        {
+            return new TagGenerater.TagInfo();
         }
 
     }

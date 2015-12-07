@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarkDown
 {
-    public class TagInfo
-    {
-        public TagGenerater.TagType TagType { get; set; }
-        public string text { get; set; } = "";
-        public string link { get; set; } = "";
-    }
+
     public class TagGenerater
     {
         public enum TagType
@@ -20,45 +11,77 @@ namespace MarkDown
             P, Strong
         }
 
-        
+        public enum LinkType
+        {
+            Page, Mail, Application
+        }
+
+        public class TagInfo
+        {
+            public TagType TagType { get; set; }
+            public string Text { get; set; } = "";
+            public string Link { get; set; } = "";
+        }
 
         public static string TagGenerate(TagInfo info)
         {
-            return "";
+            switch (info.TagType)
+            {
+                case TagType.H1:
+                    return Hn(info, 1);
+
+                case TagType.H2:
+                    return Hn(info, 2);
+
+                case TagType.H3:
+                    return Hn(info, 3);
+
+                case TagType.H4:
+                    return Hn(info, 4);
+
+                case TagType.H5:
+                    return Hn(info, 5);
+
+                case TagType.P:
+                    return SingleText(info);
+
+                case TagType.Strong:
+                    return Strong(info);
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         /// <summary>
         /// this is a generate for h TAG
         /// </summary>
-        /// <param name="text">inner Text</param>
+        /// <param name="info"></param>
         /// <param name="count">h type</param>
         /// <returns></returns>
-        public string Hn(string text, int count)
+        public static string Hn(TagInfo info, int count)
         {
-            return $"<h{count}>{text}</h{count}>";
+            return $"<h{count}>{info.Text}</h{count}>";
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="info"></param>
         /// <returns></returns>
-        public string SingleText(string text)
+        public static string SingleText(TagInfo info)
         {
-            return $"<p>{text}</p>";
+            return $"<p>{info.Text}</p>";
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="info"></param>
         /// <returns></returns>
-        public string strong(string text)
+        public static string Strong(TagInfo info)
         {
-            return $"<strong>{text}</strong>";
+            return $"<strong>{info.Text}</strong>";
         }
-
-
-
     }
 }
