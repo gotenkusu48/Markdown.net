@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace MarkDown
 {
+    public class TagInfo
+    {
+        public TagGenerater.TagType TagType { get; set; }
+        public string text { get; set; } = "";
+        public string link { get; set; } = "";
+    }
     public class TagGenerater
     {
         public enum TagType
@@ -14,12 +20,7 @@ namespace MarkDown
             P, Strong
         }
 
-        public class TagInfo
-        {
-            public TagType TagType { get; set; }
-            public string text { get; set; } = "";
-            public string link { get; set; } = "";
-        }
+        
 
         public static string TagGenerate(TagInfo info)
         {
